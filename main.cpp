@@ -19,13 +19,21 @@ int main()
     while (true) {
 
         if ( gasDetector || overTempDetector ) {
+            printf("Detector de gas\n");
+            printf("gasDetector: %d\n", gasDetector.read());
+            printf("%s\n", " ");
+            printf("Detector de Temperatura\n");
+            printf("overTempDetector: %d\n", overTempDetector.read());
             alarmState = ON;
+            printf("alarmLed: %d\n", alarmLed.read());
         }
 
         alarmLed = alarmState;
 
         if ( alarmOffButton ) {
             alarmState = OFF;
+            printf("%s\n", " ");
+            printf("alarmLed: %d\n", alarmLed.read());
         }
     }
 }
