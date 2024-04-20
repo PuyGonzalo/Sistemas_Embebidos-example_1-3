@@ -1,8 +1,13 @@
 #include "mbed.h"
 #include "arm_book_lib.h"
 
+#define ORIGINAL_CODE 1
+//#define MODIFIED_CODE 1
+
 int main()
 {
+#ifdef ORIGINAL_CODE
+
     DigitalIn gasDetector(D2);
     DigitalIn overTempDetector(D3);
     DigitalIn alarmOffButton(BUTTON1);
@@ -36,4 +41,10 @@ int main()
             printf("alarmLed: %d\n", alarmLed.read());
         }
     }
+
+#elif defined MODIFIED_CODE
+    //!< @note En esta seccion coloco el codigo modificado. En este caso, voy a modificar el codigo original para realizar el manejo de gasDetector, overTempDetector y alarmLed sin C++
+
+    
+#endif
 }
