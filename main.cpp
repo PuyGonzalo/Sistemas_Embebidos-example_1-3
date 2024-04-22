@@ -45,6 +45,51 @@ int main()
 #elif defined MODIFIED_CODE
     //!< @note En esta seccion coloco el codigo modificado. En este caso, voy a modificar el codigo original para realizar el manejo de gasDetector, overTempDetector y alarmLed sin C++
 
+    gpio_t gasDetector;
+    gpio_init_in(&gasDetector, D2);
+
+    gpio_t overTempDetector;
+    gpio_init_in(&overTempDetector, D3);
+
+    gpio_t alarmOffButton;
+    gpio_init_in(&alarmOffButton, BUTTON1);
+
+
+    gpio_t alarmLed;
+    gpio_init_out(&alarmLed, LED1);
+
+    gpio_mode(&gasDetector, PullDown);
+
+    gpio_mode(&overTempDetector, PullDown);
+
+    gpio_write(&alarmLed, OFF);
+
+    bool alarmState = OFF;
+
+    while (true) 
+    {
+        if ( gpio_read(&gasDetector) || gpio_read(&overTempDetector) ) 
+        {
+            printf("if ( gasDetector || overTempDetector ) \n");
+            printf("gasDetector = %d\n", gpio_read(&gasDetector));
+            printf("overTempDetector = %d\n", gpio_read(&overTempDetector));
+            printf("alarmState = %d\n", alarmState);
+
+            alarmState = ON;
+        }
+
+        gpio_write(&alarmLed, alarmState);
+
+        if ( gpio_read(&alarmOffButton) ) 
+        {
+            printf("if ( alarmOffButton ) \n");
+            printf("gasDetector = %d\n", gpio_read(&gasDetector));
+            printf("overTempDetector = %d\n", gpio_read(&overTempDetector));
+            printf("alarmState = %d\n", alarmState);
+
+            alarmState = OFF;
+        }
+    }
     
 #endif
 }
